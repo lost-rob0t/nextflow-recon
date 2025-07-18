@@ -1,0 +1,182 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/your-org/hackmode-recon/master/nextflow_schema.json",
+    "title": "Hackmode Recon Pipeline Parameters",
+    "description": "Security reconnaissance automation framework parameters",
+    "type": "object",
+    "definitions": {
+        "input_output_options": {
+            "title": "Input/output options",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Define where the pipeline should find input data and save output data.",
+            "properties": {
+                "input": {
+                    "type": "string",
+                    "format": "file-path",
+                    "description": "Path to input file containing targets"
+                },
+                "outdir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "The output directory where the results will be saved.",
+                    "default": "./results"
+                }
+            }
+        },
+        "bbrf_options": {
+            "title": "BBRF options",
+            "type": "object",
+            "fa_icon": "fas fa-database",
+            "description": "BBRF database configuration options",
+            "properties": {
+                "bbrf_program": {
+                    "type": "string",
+                    "description": "BBRF program name",
+                    "default": "default-op"
+                },
+                "use_bbrf_targets": {
+                    "type": "boolean",
+                    "description": "Use targets from BBRF database",
+                    "default": true
+                },
+                "upload_to_bbrf": {
+                    "type": "boolean",
+                    "description": "Upload results to BBRF database",
+                    "default": true
+                },
+                "bbrf_tags": {
+                    "type": "string",
+                    "description": "Tags to apply to BBRF uploads",
+                    "default": "subfinder,assetfinder,httpx"
+                }
+            }
+        },
+        "reconnaissance_options": {
+            "title": "Reconnaissance options",
+            "type": "object",
+            "fa_icon": "fas fa-search",
+            "description": "Configure which reconnaissance techniques to use",
+            "properties": {
+                "passive_recon": {
+                    "type": "boolean",
+                    "description": "Enable passive reconnaissance",
+                    "default": true
+                },
+                "active_recon": {
+                    "type": "boolean",
+                    "description": "Enable active reconnaissance",
+                    "default": false
+                },
+                "vulnerability_scan": {
+                    "type": "boolean",
+                    "description": "Enable vulnerability scanning",
+                    "default": false
+                }
+            }
+        },
+        "tool_options": {
+            "title": "Tool options",
+            "type": "object",
+            "fa_icon": "fas fa-wrench",
+            "description": "Configure individual security tools",
+            "properties": {
+                "subfinder_sources": {
+                    "type": "string",
+                    "description": "Subfinder sources to use",
+                    "default": "all"
+                },
+                "enable_assetfinder": {
+                    "type": "boolean",
+                    "description": "Enable assetfinder",
+                    "default": true
+                },
+                "httpx_json_output": {
+                    "type": "boolean",
+                    "description": "Enable HTTPx JSON output",
+                    "default": true
+                },
+                "httpx_tech_detect": {
+                    "type": "boolean",
+                    "description": "Enable HTTPx technology detection",
+                    "default": true
+                },
+                "httpx_hash_calculate": {
+                    "type": "boolean",
+                    "description": "Enable HTTPx hash calculation",
+                    "default": true
+                },
+                "httpx_jarm": {
+                    "type": "boolean",
+                    "description": "Enable HTTPx JARM fingerprinting",
+                    "default": false
+                },
+                "httpx_threads": {
+                    "type": "integer",
+                    "description": "Number of HTTPx threads",
+                    "default": 50,
+                    "minimum": 1,
+                    "maximum": 200
+                }
+            }
+        },
+        "performance_options": {
+            "title": "Performance options",
+            "type": "object",
+            "fa_icon": "fas fa-tachometer-alt",
+            "description": "Configure performance and resource usage",
+            "properties": {
+                "rate_limit": {
+                    "type": "integer",
+                    "description": "Rate limit for requests",
+                    "default": 100,
+                    "minimum": 1
+                },
+                "delay": {
+                    "type": "string",
+                    "description": "Delay between requests",
+                    "default": "100ms"
+                }
+            }
+        },
+        "generic_options": {
+            "title": "Generic options",
+            "type": "object",
+            "fa_icon": "fas fa-file-import",
+            "description": "Less common options for the pipeline, typically set in a config file.",
+            "properties": {
+                "help": {
+                    "type": "boolean",
+                    "description": "Display help text.",
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "validate_params": {
+                    "type": "boolean",
+                    "description": "Boolean whether to validate parameters against the schema at runtime",
+                    "default": true,
+                    "fa_icon": "fas fa-check-square"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/input_output_options"
+        },
+        {
+            "$ref": "#/definitions/bbrf_options"
+        },
+        {
+            "$ref": "#/definitions/reconnaissance_options"
+        },
+        {
+            "$ref": "#/definitions/tool_options"
+        },
+        {
+            "$ref": "#/definitions/performance_options"
+        },
+        {
+            "$ref": "#/definitions/generic_options"
+        }
+    ]
+}
