@@ -29,7 +29,7 @@ process STARINTEL_ACTOR {
     tag "${request.baseName}"
     publishDir "${params.starintel_actor_outdir ?: params.outdir + '/starintel-actors'}",
         mode: 'copy', overwrite: false
-    maxForks params.starintel_actor_max_forks ?: 8
+    maxForks (params.starintel_actor_max_forks ?: 8)
 
     input:
     path request
