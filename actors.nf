@@ -2,6 +2,12 @@
 
 nextflow.enable.dsl = 2
 
+params.starintel_actor_jobs = null
+params.starintel_actor_cli = 'starintel-actor'
+params.starintel_actor_max_forks = 8
+params.starintel_actor_fail_fast = false
+params.starintel_actor_outdir = null
+
 include { STARINTEL_ACTOR_BATCH } from './subworkflows/starintel_actors'
 
 
@@ -32,6 +38,9 @@ workflow {
     if (!params.starintel_actor_jobs) {
         actor_help()
         error("--starintel_actor_jobs is required")
+    }
+    if ((params.starintel_actor_max_forks as int) < 1) {
+        error("--starintel_actor_max_forks must be >= 1")
     }
 
     jobs = Channel.fromPath(params.starintel_actor_jobs, checkIfExists: true)
