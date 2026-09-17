@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "https://raw.githubusercontent.com/your-org/hackmode-recon/master/nextflow_schema.json",
     "title": "Hackmode Recon Pipeline Parameters",
-    "description": "Security reconnaissance automation framework parameters",
+    "description": "Security reconnaissance and StarIntel actor workflow parameters",
     "type": "object",
     "definitions": {
         "input_output_options": {
@@ -120,6 +120,41 @@
                 }
             }
         },
+        "actor_options": {
+            "title": "StarIntel actor options",
+            "type": "object",
+            "fa_icon": "fas fa-project-diagram",
+            "description": "Run local StarIntel pro actors through the actors.nf entry point.",
+            "properties": {
+                "starintel_actor_jobs": {
+                    "type": "string",
+                    "format": "file-path",
+                    "description": "NDJSON file containing actor id and argv-array jobs"
+                },
+                "starintel_actor_cli": {
+                    "type": "string",
+                    "description": "Local StarIntel actor dispatcher executable",
+                    "default": "starintel-actor"
+                },
+                "starintel_actor_max_forks": {
+                    "type": "integer",
+                    "description": "Maximum number of actor processes running concurrently",
+                    "default": 8,
+                    "minimum": 1
+                },
+                "starintel_actor_fail_fast": {
+                    "type": "boolean",
+                    "description": "Fail the Nextflow task when a local actor returns non-zero",
+                    "default": false
+                },
+                "starintel_actor_outdir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "Directory for actor JSONL, receipts, and stderr logs",
+                    "default": "./results/starintel-actors"
+                }
+            }
+        },
         "performance_options": {
             "title": "Performance options",
             "type": "object",
@@ -171,6 +206,9 @@
         },
         {
             "$ref": "#/definitions/tool_options"
+        },
+        {
+            "$ref": "#/definitions/actor_options"
         },
         {
             "$ref": "#/definitions/performance_options"
