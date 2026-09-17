@@ -1,0 +1,4 @@
+# Offline deterministic actor first: safe for a workflow smoke test.
+{"id":"ada-usernames","actor":"generate-usernames","args":["starintel:person:ada","--first-name","Ada","--last-name","Lovelace","--max-candidates","20"]}
+# Network-backed example; remove this line when doing an offline smoke test.
+{"id":"ada-userhunt","actor":"user-hunt","args":["ada_lovelace","--site","GitHub","--timeout","15"]}
