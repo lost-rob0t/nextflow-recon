@@ -6,7 +6,7 @@ params.starintel_actor_jobs = null
 params.starintel_actor_cli = 'starintel-actor'
 params.starintel_actor_max_forks = 8
 params.starintel_actor_fail_fast = false
-params.starintel_actor_outdir = null
+params.starintel_actor_outdir = './results/starintel-actors'
 
 include { STARINTEL_ACTOR_BATCH } from './subworkflows/starintel_actors'
 
